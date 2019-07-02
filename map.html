@@ -7,7 +7,8 @@
     
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
     <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
-    <script src="map.js"></script>
+    <script src="js/immutable.js"></script>
+    <script src="js/map.js"></script>
   </head>
   <body>
     <div id="map"></div>
@@ -16,7 +17,15 @@
       <input type="radio" name="baseMap" id="midnight" /><span>midnight</span>
       <input type="radio" name="baseMap" id="gray" /><span>gray</span>
       <input type="radio" name="baseMap" id="satellite" /><span>satellite</span>
-      <input type="checkbox" class="aaf-ol5-layer" id="hybrid" /><span>satellite</span>
+      <input type="checkbox" class="aaf-ol5-layer" id="hybrid" /><span>hybrid</span><br />
+      <div class="filebox"> 
+        <label for="overlayerKML">KML</label>
+        <input type="file" id="overlayerKML" onchange="handleFiles(this.files, 'KML')">
+      </div>
+      <div class="filebox"> 
+        <label for="overlayerGeoJSON">GeoJSON</label>
+        <input type="file" id="overlayerGeoJSON" onchange="handleFiles(this.files, 'GeoJSON')">
+      </div>
     </div>
     <div class="aaf-ol5-vworld-logo"></div>
   </body>
