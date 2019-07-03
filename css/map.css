@@ -54,17 +54,30 @@
 	display: inline-block;
 	background: #FFFFFF;
 	position: absolute;
-    /* background: url(../img/gradation.png) */
 }
 
-#slider-container .gauge div {
+#slider-container .gauge .highlight {
     width: 6px;
     height: 142px;	
     background: #0000FF;
     display: inline-block;
     position: absolute;
-    bottom: 0px;
+    bottom: 1px;
     left: 6px;
+}
+
+#slider-container .gauge .scale .horizontal {
+  border: solid black 0.5px;
+  margin-bottom: 13px;
+  width: 10px;
+  margin-left: 4px;
+}
+
+#slider-container .gauge .scale .vertical {
+  height: 141px;
+  border-left: solid black 1px;
+  position: absolute;
+  left: 9px;
 }
 
 #slider-container .ol-control {
@@ -73,8 +86,8 @@
 
 #slider-container .zoom-in {
 	position: absolute;
-	top: 5px;
-	left: 15px;
+	top: 0px;
+	left: 14px;
 	cursor: pointer;
 
 }

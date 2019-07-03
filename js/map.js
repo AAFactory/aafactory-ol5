@@ -12,9 +12,13 @@ $(function() {
     });
 //    map2d.getControls().item(0).setMap(null)
     map2d.addControl(new ol.control.ZoomSlider());
-    $('#slider-container').append("<div class='gauge'><div></div></div>");
+    $('#slider-container').append("<div class='gauge'><div class='scale'><div class='vertical'></div></div><div class='highlight'></div></div>");
     $('.ol-zoomslider.ol-unselectable.ol-control').appendTo($('#slider-container'));
     $('#slider-container').append("<div class='zoom-in'>+</div><div class='zoom-out'>-</div>");
+    for (var i = 0; i < 11; i++) {
+        $('#slider-container .gauge .scale').append("<div class='horizontal'></div>");
+    }
+    
     
     /* -------------------------------------------------- 
      * Map Fires 
@@ -28,9 +32,9 @@ $(function() {
     
     map2d.on('moveend', function(e) {
         var height = 14*(map2d.getView().getZoom() - 9);
-        var top = 142 - height;
-        $('#slider-container .gauge div').css('height', height)
-//        $('#slider-container button').css('top', top)
+        var topSize = 142 - height - 4;
+        $('#slider-container .gauge .highlight').css('height', height)
+        $('#slider-container button').css('top', topSize)
     });
      
     
