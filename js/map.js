@@ -32,7 +32,7 @@ $(function() {
     
     map2d.on('moveend', function(e) {
         var height = 14*(map2d.getView().getZoom() - 9);
-        var topSize = 142 - height - 4;
+        var topSize = 140 - height - 4;
         $('#slider-container .gauge .highlight').css('height', height)
         $('#slider-container button').css('top', topSize)
     });
