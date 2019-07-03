@@ -1,23 +1,20 @@
 $(function() {
-    var projection = new ol.proj.Projection({
-        code: 'EPSG:3857',
-        units: 'm',
-        axisOrientation: 'neu',
-        global:true,
-        extent:[-20037508.342789244, -20037508.342789244, 20037508.342789244, 20037508.342789244]    
-    });
-    
     map2d = new ol.Map({
         target : 'map',
         layers : [ layerManager.base, layerManager.midnight, layerManager.gray, layerManager.satellite, layerManager.hybrid ],
         view : new ol.View({
-            projection : projection,
+            projection : ol.proj.get('EPSG:3857'),
             zoom: 17,
+            minZoom: 9,
             maxZoom: 19,
             center: [14151634.386853758, 4501822.588975821]
         })
     });
-    map2d.getControls().item(0).setMap(null)
+//    map2d.getControls().item(0).setMap(null)
+    map2d.addControl(new ol.control.ZoomSlider());
+    $('#slider-container').append("<div class='gauge'><div></div></div>");
+    $('.ol-zoomslider.ol-unselectable.ol-control').appendTo($('#slider-container'));
+    $('#slider-container').append("<div class='zoom-in'>+</div><div class='zoom-out'>-</div>");
     
     /* -------------------------------------------------- 
      * Map Fires 
@@ -28,6 +25,14 @@ $(function() {
             console.log(feature.getGeometry());
         });
     });
+    
+    map2d.on('moveend', function(e) {
+        var height = 14*(map2d.getView().getZoom() - 9);
+        var top = 142 - height;
+        $('#slider-container .gauge div').css('height', height)
+//        $('#slider-container button').css('top', top)
+    });
+     
     
     
     $('input[name=baseMap]').on('change', function(e) {

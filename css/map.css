@@ -1,0 +1,123 @@
+/* -------------------------------------------------- 
+ * OpenLayers custom
+ * ------------------------------------------------ */
+#map { 
+  position: relative;
+  width: 500px; height: 500px;
+  background: url(../img/bg_tile.png); 
+}
+
+/**
+ * The zoomslider in the third map shall be horizontal, placed in the top-right
+ * corner, smaller and orange.
+ */
+#map .ol-zoomslider {
+  top: 0px;
+  left: 0px;
+  width: 18px;
+  height: 142px;
+  padding: 0px 0px 0px 0px;
+  position: relative;
+}
+
+#map .ol-zoomslider:hover {
+  cursor: pointer;
+}
+
+#map .ol-zoomslider-thumb {
+  height: 5px;
+  width: 18px;
+  margin-left: 0px;
+  filter: none;
+  background-color: white;
+  border: solid rgba(0,0,0,0.6) 1px;
+  cursor: pointer;
+}
+#map a.ol-zoomslider-handle:hover {
+  background-color: rgba(255,69,0,0.7);
+}
+
+#slider-container {
+  z-index: 1;	
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 26px 10px 27px 10px;
+  background-color: white;
+  border: solid #0000FF 1px;
+  border-radius: 2px;
+}
+
+#slider-container .gauge {
+	width: 18px;
+	height: 142px;
+	display: inline-block;
+	background: #FFFFFF;
+	position: absolute;
+    /* background: url(../img/gradation.png) */
+}
+
+#slider-container .gauge div {
+    width: 6px;
+    height: 142px;	
+    background: #0000FF;
+    display: inline-block;
+    position: absolute;
+    bottom: 0px;
+    left: 6px;
+}
+
+#slider-container .ol-control {
+	background-color: rgba(255,255,255,0)
+}
+
+#slider-container .zoom-in {
+	position: absolute;
+	top: 5px;
+	left: 15px;
+	cursor: pointer;
+
+}
+#slider-container .zoom-out {
+	position: absolute;
+	bottom: 5px;
+	left: 16px;
+	cursor: pointer;
+}
+
+/* -------------------------------------------------- 
+ * Awesome Application Factory
+ * ------------------------------------------------ */
+ body { margin: 0px; }
+.aaf-ol5-button {
+  display: inline-block;
+  background: #006fff;
+  color: white;
+  padding: 5px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.aaf-ol5-layer-toolbar {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: white;
+  padding: 10px;
+  border-radius: 3px;
+}
+.aaf-ol5-vworld-logo {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 93px;
+  height: 28px;
+  background: url(../img/logo_openplatform_simple.png)
+}
+
+
+/* -------------------------------------------------- 
+ * Third Party
+ * ------------------------------------------------ */
+.filebox { display: inline-block; }
+.filebox label { display: inline-block; padding: .5em .75em; color: #FFFFFF; font-size: inherit; line-height: normal; vertical-align: middle; background-color: #006fff; cursor: pointer; border: 1px solid #ebebeb; border-bottom-color: #e2e2e2; border-radius: .25em; }
+.filebox input[type="file"] { /* 파일 필드 숨기기 */ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }

@@ -1,4 +1,13 @@
 var map2d;
+
+var projection3857 = new ol.proj.Projection({
+    code: 'EPSG:3857',
+    units: 'm',
+    axisOrientation: 'neu',
+    global:true,
+    extent:[-20037508.342789244, -20037508.342789244, 20037508.342789244, 20037508.342789244]    
+});
+
 var layerManager = {
     base: new ol.layer.Tile({
         visible : true,
