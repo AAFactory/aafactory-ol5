@@ -60,20 +60,25 @@ $(function() {
                             ]);
     var pointArray = [];
     pointArray.push(turf.point([127.1255761384964, 37.46912752394621]));  
-    var nearestPoint = turf.nearestPointOnLine(line, pointArray[0], {units: 'miles'}); 
-    overlayGeoJSON(nearestPoint, {});
-    var bearing = turf.bearing(pointArray[0], nearestPoint);
-    var rotate = (180 + bearing) * (Math.PI/180)
-    console.log(rotate)
-    overlayGeoJSON(pointArray[0], {style: [ new ol.style.Style({
-        image : new ol.style.Icon({
-            anchor: [0.5, 0.5],
-            anchorXUnits: 'fraction',
-            anchorYUnits: 'pixels',
-            src: 'img/arrow-down-4-24.png',
-            rotation: rotate
-        })
-    })]});
+    pointArray.push(turf.point([127.12463200092313, 37.468748593207025]));  
+    pointArray.push(turf.point([127.12497532367703, 37.47138829551686]));  
+    pointArray.push(turf.point([127.1261769533157, 37.47205246400047]));  
+    pointArray.forEach(function(point) {
+        var nearestPoint = turf.nearestPointOnLine(line, point, {units: 'miles'}); 
+//        overlayGeoJSON(nearestPoint, {});
+        var bearing = turf.bearing(point, nearestPoint);
+        var rotate = (180 + bearing) * (Math.PI/180)
+        overlayGeoJSON(point, {style: [ new ol.style.Style({
+            image : new ol.style.Icon({
+                anchor: [0.5, 0.5],
+                anchorXUnits: 'fraction',
+                anchorYUnits: 'fraction',
+                src: 'img/arrow-down-4-24.png',
+                rotation: rotate
+            })
+        })]});
+    });
+    
     setTimeout(function() { overlayGeoJSON(line, {fitExtent: true}) }, 1000)
     
     
