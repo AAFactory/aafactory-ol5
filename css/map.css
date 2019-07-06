@@ -12,10 +12,10 @@
  * corner, smaller and orange.
  */
 #map .ol-zoomslider {
-  top: 30px;
+  top: 34px;
   left: 10px;
   width: 18px;
-  height: 140px;
+  height: 150px;
   padding: 0px 0px 0px 0px;
   position: absolute;
 }
@@ -43,7 +43,8 @@
   top: 10px;
   left: 10px;
   width: 38px;
-  height: 196px;
+  /* height: 196px; */
+  height: 216px; 
   background-color: white;
   border: solid #0000FF 1px;
   border-radius: 2px;
@@ -51,9 +52,10 @@
 
 #slider-container .gauge {
 	width: 18px;
-	height: 140px;
+	/* height: 140px; */
+	height: 150px;
 	left: 10px;
-	top: 29px;
+	top: 34px;
 	display: inline-block;
 	background: #FFFFFF;
 	position: absolute;
@@ -61,7 +63,7 @@
 
 #slider-container .gauge .highlight {
     width: 6px;
-    height: 142px;	
+    height: 0px;	
     background: #0000FF;
     display: inline-block;
     position: absolute;
@@ -71,13 +73,13 @@
 
 #slider-container .gauge .scale .horizontal {
   border: solid black 0.5px;
-  margin-bottom: 13px;
+  margin-bottom: 9px;
   width: 10px;
   margin-left: 4px;
 }
 
 #slider-container .gauge .scale .vertical {
-  height: 140px;
+  height: 150px;
   border-left: solid black 1px;
   position: absolute;
   left: 9px;
@@ -89,22 +91,34 @@
 
 #slider-container .zoom-in {
 	position: absolute;
-	top: 0px;
+	top: 3px;
 	left: 14px;
 	cursor: pointer;
 
 }
+#slider-container .zoom-in img {
+  width: 10px;
+  height: 10px;
+}
+
 #slider-container .zoom-out {
 	position: absolute;
 	bottom: 5px;
-	left: 16px;
+	left: 14px;
 	cursor: pointer;
+}
+#slider-container .zoom-out img {
+  width: 10px;
+  height: 8px;
+}
+.ol-zoom.ol-unselectable.ol-control {
+  display: none;
 }
 
 /* -------------------------------------------------- 
  * Awesome Application Factory
  * ------------------------------------------------ */
- body { margin: 0px; }
+ body { margin: 0px; font-size: 14px; }
 .aaf-ol5-button {
   display: inline-block;
   background: #006fff;
