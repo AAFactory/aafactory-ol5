@@ -1,7 +1,7 @@
 $(function() {
     map2d = new ol.Map({
         target : 'map',
-        layers : [ layerManager.base, layerManager.midnight, layerManager.gray, layerManager.satellite, layerManager.hybrid ],
+        layers : [ layerManager.base, layerManager.midnight, layerManager.gray, layerManager.satellite, layerManager.osm, layerManager.hybrid ],
         view : new ol.View({
             projection : ol.proj.get('EPSG:3857'),
             zoom: 10,
@@ -88,6 +88,7 @@ $(function() {
      * Event Listeners 
      * ------------------------------------------------ */
     $('input[name=baseMap]').on('change', function(e) {
+        layerManager.osm.setVisible(false);
         layerManager.base.setVisible(false);
         layerManager.gray.setVisible(false);
         layerManager.midnight.setVisible(false);
@@ -95,6 +96,12 @@ $(function() {
         
         var layer = layerManager[$(this).attr('id')];
         layer.setVisible(true);
+        
+        if ($(this).attr('id') === 'osm') {
+            $('.aaf-ol5-vworld-logo').css('display', 'none')
+        } else {
+            $('.aaf-ol5-vworld-logo').css('display', 'block')
+        }
     });
     
     $('.aaf-ol5-layer').on('change', function(e) {
@@ -104,15 +111,8 @@ $(function() {
     var _draw; 
     var _source = new ol.source.Vector({wrapX: false});
     var _vector = new ol.layer.Vector({
-        source: _source/*,
-        style: [
-                new ol.style.Style({
-                    stroke: new ol.style.Stroke({
-                        color: 'red',
-                        width: 1
-                    })
-                })
-                ]*/
+        source: _source,
+        style: styleFunction
     });
     map2d.addLayer(_vector);
     
@@ -120,7 +120,8 @@ $(function() {
         if (value !== 'None') {
             _draw = new ol.interaction.Draw({
                 source: _source,
-                type: value
+                type: value,
+                style: drawerStyleFunction
             });
             map2d.addInteraction(_draw);
         }
