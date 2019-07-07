@@ -10,10 +10,11 @@ var projection3857 = new ol.proj.Projection({
 
 var layerManager = {
     base: new ol.layer.Tile({
-        visible: false,
+        visible: true,
         source: new ol.source.XYZ({
             url: 'http://xdworld.vworld.kr:8080/2d/Base/service/{z}/{x}/{y}.png',
-        })
+        }),
+        name: 'vworld-base'
     }),
     gray: new ol.layer.Tile({
         visible: false,
@@ -40,7 +41,7 @@ var layerManager = {
         })
     }),
     osm: new ol.layer.Tile({
-        visible: true,
+        visible: false,
         source: new ol.source.OSM()
     }),
 }
@@ -122,7 +123,7 @@ var styleFunction = function(feature) {
     return styles[feature.getGeometry().getType()];
 };
 
-var drawerStyleFunction = function(feature) {
+var drawStyleFunction = function(feature) {
     var styles = {
         'Point': new ol.style.Style({
             image: new ol.style.Circle({
@@ -130,21 +131,16 @@ var drawerStyleFunction = function(feature) {
                 fill: new ol.style.Fill({
                     color: 'rgba(0, 0, 255, 0.7)'
                 }),
-                stroke: new ol.style.Stroke({color: 'blue', width: 2})
+                stroke: new ol.style.Stroke({color: 'blue', width: 1})
             })
         }),
         'LineString': new ol.style.Style({
             stroke: new ol.style.Stroke({
-                color: 'green',
-                width: 1
+                color: 'blue',
+                width: 2
             })
         }),
         'Polygon': new ol.style.Style({
-            stroke: new ol.style.Stroke({
-                color: 'blue',
-                lineDash: [4],
-                width: 3
-            }),
             fill: new ol.style.Fill({
                 color: 'rgba(0, 0, 255, 0.1)'
             })

@@ -1,3 +1,19 @@
+/* -------------------------------------------------- 
+ * Openlayers5 extensions
+ * ------------------------------------------------ */
+ol.Map.prototype.getLayer = function(name) {
+    var targetLayer = null;
+    for (var i = 0; i < this.getLayers().getLength(); i++) {
+        var layer = this.getLayers().item(i);
+        if (layer.get('name') === name) {
+            targetLayer = layer;
+            break;
+        }
+    }
+    return targetLayer;
+}
+
+
 $(function() {
     map2d = new ol.Map({
         target : 'map',
@@ -112,7 +128,8 @@ $(function() {
     var _source = new ol.source.Vector({wrapX: false});
     var _vector = new ol.layer.Vector({
         source: _source,
-        style: styleFunction
+        style: styleFunction,
+        name: 'aaf-ol5-draw'
     });
     map2d.addLayer(_vector);
     
@@ -121,7 +138,7 @@ $(function() {
             _draw = new ol.interaction.Draw({
                 source: _source,
                 type: value,
-                style: drawerStyleFunction
+                style: drawStyleFunction
             });
             map2d.addInteraction(_draw);
         }

@@ -138,7 +138,7 @@
   overflow: auto;
 }
 .aaf-ol5-vworld-logo {
-  display: none;
+  /* display: none; */
   position: absolute;
   bottom: 10px;
   right: 10px;
