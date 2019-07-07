@@ -134,6 +134,8 @@
   background: white;
   padding: 10px;
   border-radius: 3px;
+  max-height: 300px;
+  overflow: auto;
 }
 .aaf-ol5-vworld-logo {
   position: absolute;

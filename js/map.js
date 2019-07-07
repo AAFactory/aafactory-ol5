@@ -4,7 +4,7 @@ $(function() {
         layers : [ layerManager.base, layerManager.midnight, layerManager.gray, layerManager.satellite, layerManager.hybrid ],
         view : new ol.View({
             projection : ol.proj.get('EPSG:3857'),
-            zoom: 17,
+            zoom: 10,
             /*minZoom: 9,*/
             /*maxZoom: 19,*/
             center: [14151634.386853758, 4501822.588975821],
@@ -96,9 +96,40 @@ $(function() {
         var layer = layerManager[$(this).attr('id')];
         layer.setVisible(true);
     });
+    
     $('.aaf-ol5-layer').on('change', function(e) {
         layerManager[$(this).attr('id')].setVisible($(this).prop('checked'))
     });
+    
+    var _draw; 
+    var _source = new ol.source.Vector({wrapX: false});
+    var _vector = new ol.layer.Vector({
+        source: _source/*,
+        style: [
+                new ol.style.Style({
+                    stroke: new ol.style.Stroke({
+                        color: 'red',
+                        width: 1
+                    })
+                })
+                ]*/
+    });
+    map2d.addLayer(_vector);
+    
+    var addInteraction = function(value) {
+        if (value !== 'None') {
+            _draw = new ol.interaction.Draw({
+                source: _source,
+                type: value
+            });
+            map2d.addInteraction(_draw);
+        }
+    }
+    $('#type').on('change', function(e) {
+        map2d.removeInteraction(_draw);
+        addInteraction($(this).val());
+    });
+    
     updateSize();
     $(window).resize(function() { updateSize(); });
 });
