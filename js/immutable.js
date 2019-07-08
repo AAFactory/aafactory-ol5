@@ -1,3 +1,14 @@
+/* -------------------------------------------------- 
+ * define packages
+ * ------------------------------------------------ */
+var aaf = {}
+aaf.ol5 = {}
+aaf.ol5.immutable = { VWORLD_KEY: '1074A244-16DE-3761-B6BC-B8E884F91409' }
+
+
+/* -------------------------------------------------- 
+ * define immutable value
+ * ------------------------------------------------ */
 var map2d;
 
 var projection3857 = new ol.proj.Projection({
@@ -9,35 +20,36 @@ var projection3857 = new ol.proj.Projection({
 });
 
 var layerManager = {
+    key: '',
     base: new ol.layer.Tile({
         visible: true,
         source: new ol.source.XYZ({
-            url: 'http://xdworld.vworld.kr:8080/2d/Base/service/{z}/{x}/{y}.png',
+            url: 'http://api.vworld.kr/req/wmts/1.0.0/' + aaf.ol5.immutable.VWORLD_KEY + '/Base/{z}/{y}/{x}.png',
         }),
         name: 'vworld-base'
     }),
     gray: new ol.layer.Tile({
         visible: false,
         source: new ol.source.XYZ({
-            url: 'http://xdworld.vworld.kr:8080/2d/gray/service/{z}/{x}/{y}.png'
+            url: 'http://api.vworld.kr/req/wmts/1.0.0/' + aaf.ol5.immutable.VWORLD_KEY + '/gray/{z}/{y}/{x}.png',
         })
     }),  
     midnight: new ol.layer.Tile({
         visible: false,
         source: new ol.source.XYZ({
-            url: 'http://xdworld.vworld.kr:8080/2d/midnight/service/{z}/{x}/{y}.png'
+            url: 'http://api.vworld.kr/req/wmts/1.0.0/' + aaf.ol5.immutable.VWORLD_KEY + '/midnight/{z}/{y}/{x}.png',
         })
     }),
     satellite: new ol.layer.Tile({
         visible: false,
         source: new ol.source.XYZ({
-            url: 'http://xdworld.vworld.kr:8080/2d/Satellite/service/{z}/{x}/{y}.jpeg'
+            url: 'http://api.vworld.kr/req/wmts/1.0.0/' + aaf.ol5.immutable.VWORLD_KEY + '/Satellite/{z}/{y}/{x}.jpeg',
         })
     }),
     hybrid: new ol.layer.Tile({
         visible: false,
         source: new ol.source.XYZ({
-            url: 'http://xdworld.vworld.kr:8080/2d/Hybrid/service/{z}/{x}/{y}.png'
+            url: 'http://api.vworld.kr/req/wmts/1.0.0/' + aaf.ol5.immutable.VWORLD_KEY + '/Hybrid/{z}/{y}/{x}.png',
         })
     }),
     osm: new ol.layer.Tile({
