@@ -4,7 +4,7 @@
 var aaf = {}
 aaf.ol5 = {}
 aaf.ol5.immutable = { VWORLD_KEY: '1074A244-16DE-3761-B6BC-B8E884F91409' }
-
+aaf.ol5.interaction = {}
 
 /* -------------------------------------------------- 
  * define immutable value

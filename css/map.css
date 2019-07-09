@@ -129,12 +129,13 @@
 }
 .aaf-ol5-layer-toolbar {
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 0px;
+  right: 0px;
   background: white;
   padding: 10px;
   border-radius: 3px;
-  max-height: 300px;
+  /* max-height: 300px; */
+  height: calc(100% - 70px);
   overflow: auto;
 }
 .aaf-ol5-vworld-logo {
