@@ -24,6 +24,10 @@ aaf.ol5.interaction.DrawFeature = function(map) {
     });
     _map.addLayer(_vector);
     
+    this.clearAll = function() {
+        _source.clear();
+    }
+    
     this.addInteraction = function(value) {
         if (value !== 'None') {
             _draw = new ol.interaction.Draw({
@@ -49,6 +53,10 @@ aaf.ol5.interaction.DrawShape = function(map) {
         name: 'aaf-ol5-draw-shape'
     });
     _map.addLayer(_vector);
+    
+    this.clearAll = function() {
+        _source.clear();
+    }
     
     this.addInteraction = function(value) {
         if (value !== 'None') {
@@ -215,12 +223,19 @@ $(function() {
         drawFeature.removeInteraction();
         drawFeature.addInteraction($(this).val());
     });
+    $('#clearFeatures').on('click', function() {
+        drawFeature.clearAll();
+    });
     
     var drawShape = new aaf.ol5.interaction.DrawShape(map2d);
     $('#shapeType').on('change', function(e) {
         drawShape.removeInteraction();
         drawShape.addInteraction($(this).val());
     });
+    $('#clearShapes').on('click', function() {
+        drawShape.clearAll();
+    });
+    
     
     updateSize();
     $(window).resize(function() { updateSize(); });

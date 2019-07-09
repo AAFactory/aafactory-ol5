@@ -23,11 +23,11 @@
       <input type="radio" name="baseMap" id="satellite" /><span>satellite</span>
       <input type="checkbox" class="aaf-ol5-layer" id="hybrid" /><span>hybrid</span><br />
       <h3>Load geometry files</h3>
-      <div class="filebox"> 
+      <div class="buttonBox"> 
         <label for="overlayerKML">KML</label>
         <input type="file" id="overlayerKML" onchange="handleFiles(this.files, 'KML')">
       </div>
-      <div class="filebox"> 
+      <div class="buttonBox"> 
         <label for="overlayerGeoJSON">GeoJSON</label>
         <input type="file" id="overlayerGeoJSON" onchange="handleFiles(this.files, 'GeoJSON')">
       </div>
@@ -39,6 +39,9 @@
 		    <option value="Polygon">Polygon</option>
 		    <option value="Circle">Circle</option>
 		  </select>
+		  <div class="buttonBox" id="clearFeatures"> 
+        <label>Clear</label>
+      </div>
 		  <h3>Draw Shapes</h3>
       <select id="shapeType">
         <option value="None">None</option>
@@ -47,6 +50,9 @@
         <option value="Box">Box</option>
         <option value="Star">Star</option>
       </select>
+      <div class="buttonBox" id="clearShapes"> 
+        <label>Clear</label>
+      </div>
     </div>
     <div class="aaf-ol5-vworld-logo"></div>
   </body>
