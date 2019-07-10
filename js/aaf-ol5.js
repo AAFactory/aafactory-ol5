@@ -77,7 +77,7 @@ aaf.ol5.helper.searchAddress = function(query) {
     $.ajax({
         url: "http://api.vworld.kr/req/search",
         data: param,
-        method: 'GET',
+        type: 'GET',
         crossDomain: true,
         dataType: 'json',
         success: function(data) {
