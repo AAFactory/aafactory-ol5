@@ -139,6 +139,7 @@ select { height: 34px; }
   /* max-height: 300px; */
   height: calc(100% - 70px);
   overflow: auto;
+  border: solid #0000FF 1px;
 }
 .aaf-ol5-vworld-logo {
   /* display: none; */

@@ -59,18 +59,22 @@ var layerManager = {
 }
 
 var styleFunction = function(feature) {
-    var image = new ol.style.Circle({
+    var circle = new ol.style.Circle({
         radius: 6,
         fill: new ol.style.Fill({
-            color: 'rgba(255, 0, 0, 0.6)'
+            color: 'rgba(0, 0, 255, 0.6)'
         }),
-        stroke: new ol.style.Stroke({color: 'red', width: 2})
+        stroke: new ol.style.Stroke({color: 'white', width: 2})
     });
-
+    var marker = new ol.style.Icon({
+        anchor: [0.5, 1],
+        anchorXUnits: 'fraction',
+        anchorYUnits: 'fraction',
+        offset: [0,0],
+        src: 'img/map-marker-2-24.png'
+    });
     var styles = {
-        'Point': new ol.style.Style({
-            image: image
-        }),
+        'Point': [new ol.style.Style({ image: circle }), new ol.style.Style({ image: marker })],
         'LineString': new ol.style.Style({
             stroke: new ol.style.Stroke({
                 color: 'green',
@@ -84,7 +88,7 @@ var styleFunction = function(feature) {
             })
         }),
         'MultiPoint': new ol.style.Style({
-            image: image
+            image: circle
         }),
         'MultiPolygon': new ol.style.Style({
             stroke: new ol.style.Stroke({

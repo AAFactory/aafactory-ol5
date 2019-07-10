@@ -1,123 +1,13 @@
-/* -------------------------------------------------- 
- * Openlayers5 extensions
- * ------------------------------------------------ */
-ol.Map.prototype.getLayer = function(name) {
-    var targetLayer = null;
-    for (var i = 0; i < this.getLayers().getLength(); i++) {
-        var layer = this.getLayers().item(i);
-        if (layer.get('name') === name) {
-            targetLayer = layer;
-            break;
-        }
-    }
-    return targetLayer;
-}
-
-aaf.ol5.interaction.DrawFeature = function(map) {
-    var _map = map;
-    var _draw; 
-    var _source = new ol.source.Vector({wrapX: false});
-    var _vector = new ol.layer.Vector({
-        source: _source,
-        style: styleFunction,
-        name: 'aaf-ol5-draw-feature'
-    });
-    _map.addLayer(_vector);
-    
-    this.clearAll = function() {
-        _source.clear();
-    }
-    
-    this.addInteraction = function(value) {
-        if (value !== 'None') {
-            _draw = new ol.interaction.Draw({
-                source: _source,
-                type: value,
-                style: drawStyleFunction
-            });
-            _map.addInteraction(_draw);
-        }
-    }
-    
-    this.removeInteraction = function() {
-        if (_draw) _map.removeInteraction(_draw)
-    }
-}
-
-aaf.ol5.interaction.DrawShape = function(map) {
-    var _map = map;
-    var _draw; 
-    var _source = new ol.source.Vector({wrapX: false});
-    var _vector = new ol.layer.Vector({
-        source: _source,
-        name: 'aaf-ol5-draw-shape'
-    });
-    _map.addLayer(_vector);
-    
-    this.clearAll = function() {
-        _source.clear();
-    }
-    
-    this.addInteraction = function(value) {
-        if (value !== 'None') {
-            var geometryFunction;
-            if (value === 'Square') {
-                value = 'Circle';
-                geometryFunction = ol.interaction.Draw.createRegularPolygon(4);
-            } else if (value === 'Box') {
-                value = 'Circle';
-                geometryFunction = ol.interaction.Draw.createBox();
-            } else if (value === 'Star') {
-                value = 'Circle';
-                geometryFunction = function(coordinates, geometry) {
-                    var center = coordinates[0];
-                    var last = coordinates[1];
-                    var dx = center[0] - last[0];
-                    var dy = center[1] - last[1];
-                    var radius = Math.sqrt(dx * dx + dy * dy);
-                    var rotation = Math.atan2(dy, dx);
-                    var newCoordinates = [];
-                    var numPoints = 12;
-                    for (var i = 0; i < numPoints; ++i) {
-                        var angle = rotation + i * 2 * Math.PI / numPoints;
-                        var fraction = i % 2 === 0 ? 1 : 0.5;
-                        var offsetX = radius * fraction * Math.cos(angle);
-                        var offsetY = radius * fraction * Math.sin(angle);
-                        newCoordinates.push([center[0] + offsetX, center[1] + offsetY]);
-                    }
-                    newCoordinates.push(newCoordinates[0].slice());
-                    if (!geometry) {
-                        geometry = new ol.geom.Polygon([newCoordinates]);
-                    } else {
-                        geometry.setCoordinates([newCoordinates]);
-                    }
-                    return geometry;
-                };
-            }
-            _draw = new ol.interaction.Draw({
-                source: _source,
-                type: value,
-                geometryFunction: geometryFunction
-            });
-            _map.addInteraction(_draw);
-        }
-    }
-    
-    this.removeInteraction = function() {
-        if (_draw) _map.removeInteraction(_draw)
-    }
-}
-
-$(function() {
+﻿$(function() {
     map2d = new ol.Map({
         target : 'map',
         layers : [ layerManager.base, layerManager.midnight, layerManager.gray, layerManager.satellite, layerManager.osm, layerManager.hybrid ],
         view : new ol.View({
             projection : ol.proj.get('EPSG:3857'),
-            zoom: 10,
+            /*zoom: 10,*/
             /*minZoom: 9,*/
             /*maxZoom: 19,*/
-            center: [14151634.386853758, 4501822.588975821],
+            /*center: [14151634.386853758, 4501822.588975821],*/
             resolutions: [4891.96981025128, 2445.98490512564, 1222.99245256282, 611.49622628141, 305.748113140705, 152.8740565703525, 76.43702828517625, 38.21851414258813, 19.109257071294063, 9.554628535647032, 4.777314267823516, 2.388657133911758, 1.194328566955879, 0.5971642834779395, 0.29858214173896974, 0.14929107086948487]
         })
     });
@@ -148,15 +38,6 @@ $(function() {
         $('#slider-container .gauge .highlight').css('height', height)
 //        $('#slider-container button').css('top', topSize)
     });
-     
-    var line = turf.lineString([
-                                [-77.031669, 38.878605],
-                                [-77.029609, 38.881946],
-                                [-77.020339, 38.884084],
-                                [-77.025661, 38.885821],
-                                [-77.021884, 38.889563],
-                                [-77.019824, 38.892368]
-                            ]);
     
     
     /* -------------------------------------------------- 
@@ -177,10 +58,9 @@ $(function() {
     pointArray.push(turf.point([127.1261769533157, 37.47205246400047]));  
     pointArray.forEach(function(point) {
         var nearestPoint = turf.nearestPointOnLine(line, point, {units: 'miles'}); 
-//        overlayGeoJSON(nearestPoint, {});
         var bearing = turf.bearing(point, nearestPoint);
         var rotate = (180 + bearing) * (Math.PI/180)
-        overlayGeoJSON(point, {style: [ new ol.style.Style({
+        aaf.ol5.helper.overlayGeoJSON(point, {style: [ new ol.style.Style({
             image : new ol.style.Icon({
                 anchor: [0.5, 0.5],
                 anchorXUnits: 'fraction',
@@ -191,7 +71,7 @@ $(function() {
         })]});
     });
     
-    setTimeout(function() { overlayGeoJSON(line, {fitExtent: true}) }, 1000)
+    aaf.ol5.helper.overlayGeoJSON(line, {fitExtent: true})
     
     
     /* -------------------------------------------------- 
@@ -250,54 +130,5 @@ var updateSize = function() {
 }
 
 var handleFiles = function(files, type) {
-    parseFile(files[0], type)
+    aaf.ol5.helper.parseFile(files[0], type)
 } 
-
-var parseFile = function(file, type) {
-    var reader = new FileReader();
-    reader.onload = function(e) {
-        var data = e.target.result;
-        console.log(data);
-        if (type === 'KML') {
-            var kmlLayer = new ol.layer.Vector({
-                source : new ol.source.Vector({
-                    features : (new ol.format.KML({extractStyles: false})).readFeatures(data, { dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857'})
-                })
-            });    
-            
-            map2d.getView().fit(kmlLayer.getSource().getExtent(), map2d.getSize())
-            kmlLayer.setMap(map2d);
-        } else if (type === 'GeoJSON') {
-            overlayGeoJSON(data, {});
-        }
-    };
-    reader.readAsText(file);
-} 
-
-var overlayGeoJSON = function(data, option) {
-    var style = option.style ? option.style : [ new ol.style.Style({
-        stroke : new ol.style.Stroke({
-            color : 'green',
-            width : 5
-        }),
-        image : new ol.style.Icon({
-            anchor: [0.5, 0.5],
-            anchorXUnits: 'fraction',
-            anchorYUnits: 'pixels',
-            src: 'img/arrow-down-4-16.png',
-            rotation: 180 * (Math.PI/180)
-        })
-    })]
-    var geoJSONLayer = new ol.layer.Vector({
-        source : new ol.source.Vector({
-            features : (new ol.format.GeoJSON()).readFeatures(data, { dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857'})
-        }),
-        style: style
-    });    
-    
-    if (option.fitExtent) {
-        console.log(data)
-        map2d.getView().fit(geoJSONLayer.getSource().getExtent(), map2d.getSize())
-    }
-    geoJSONLayer.setMap(map2d);
-}
