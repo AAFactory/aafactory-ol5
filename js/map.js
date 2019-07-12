@@ -8,7 +8,7 @@
             /*minZoom: 9,*/
             /*maxZoom: 19,*/
             /*center: [14151634.386853758, 4501822.588975821],*/
-            resolutions: [4891.96981025128, 2445.98490512564, 1222.99245256282, 611.49622628141, 305.748113140705, 152.8740565703525, 76.43702828517625, 38.21851414258813, 19.109257071294063, 9.554628535647032, 4.777314267823516, 2.388657133911758, 1.194328566955879, 0.5971642834779395, 0.29858214173896974, 0.14929107086948487]
+            resolutions: [4891.96981025128, 2445.98490512564, 1222.99245256282, 611.49622628141, 305.748113140705, 152.8740565703525, 76.43702828517625, 38.21851414258813, 19.109257071294063, 9.554628535647032, 4.777314267823516, 2.388657133911758, 1.194328566955879, 0.5971642834779395, 0.29858214173896974]
         })
     });
 //    map2d.getControls().item(0).setMap(null)
@@ -16,8 +16,8 @@
     $('#slider-container').append("<div class='gauge'><div class='scale'><div class='vertical'></div></div><div class='highlight'></div></div>");
     $('.ol-zoomslider.ol-unselectable.ol-control').appendTo($('#slider-container'));
     $('#slider-container').append("<div class='zoom-in'><img src='img/plus-8-12.png'></div><div class='zoom-out'><img src='img/minus-2-12.png'></div>");
-    // 0 ~ 15 = 16step
-    for (var i = 0; i < 16; i++) {
+    // 0 ~ 14 = 15step
+    for (var i = 0; i < 15; i++) {
         $('#slider-container .gauge .scale').append("<div class='horizontal'></div>");
     }
     

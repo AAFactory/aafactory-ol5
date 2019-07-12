@@ -75,11 +75,12 @@ aaf.ol5.helper.searchAddress = function(query) {
         ,key: aaf.ol5.immutable.VWORLD_KEY
     }
     $.ajax({
-        url: "http://api.vworld.kr/req/search",
-        data: param,
+        crossOrigin: true,
         type: 'GET',
-        crossDomain: true,
+        url: "http://api.vworld.kr/req/search",
         dataType: 'json',
+        data: param,
+        cache: false,
         success: function(data) {
             console.log(data)
         },
