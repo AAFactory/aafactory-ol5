@@ -75,7 +75,7 @@
     
     
     /* -------------------------------------------------- 
-     * Event Listeners 
+     * Base map change listeners 
      * ------------------------------------------------ */
     $('input[name=baseMap]').on('change', function(e) {
         layerManager.osm.setVisible(false);
@@ -98,6 +98,10 @@
         layerManager[$(this).attr('id')].setVisible($(this).prop('checked'))
     });
     
+    
+    /* -------------------------------------------------- 
+     * Draw features listeners 
+     * ------------------------------------------------ */
     var drawFeature = new aaf.ol5.interaction.DrawFeature(map2d); 
     $('#type').on('change', function(e) {
         drawFeature.removeInteraction();
@@ -107,6 +111,10 @@
         drawFeature.clearAll();
     });
     
+    
+    /* -------------------------------------------------- 
+     * Draw shapes listeners 
+     * ------------------------------------------------ */
     var drawShape = new aaf.ol5.interaction.DrawShape(map2d);
     $('#shapeType').on('change', function(e) {
         drawShape.removeInteraction();
@@ -116,6 +124,18 @@
         drawShape.clearAll();
     });
     
+    
+    /* -------------------------------------------------- 
+     * Measure listeners 
+     * ------------------------------------------------ */
+    var measure = new aaf.ol5.interaction.Measure(map2d);
+    $('input.measure').on('change', function() {
+        measure.removeInteraction();
+        measure.addInteraction($(this).attr('id'));
+    });
+    $('#clearMeasure').on('click', function() {
+        measure.clearAll();
+    });
     
     updateSize();
     $(window).resize(function() { updateSize(); });
