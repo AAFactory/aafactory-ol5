@@ -389,5 +389,9 @@ aaf.ol5.interaction.Measure = function(map) {
     
     this.clearAll = function() {
         _source.clear();
+        _map.getOverlays().forEach(function(overlay) {
+            overlay.setMap(null)
+        });
+        $('#none').trigger('click')
     }
 }
