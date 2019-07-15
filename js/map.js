@@ -26,9 +26,9 @@
      * Map Fires 
      * ------------------------------------------------ */
     map2d.on('singleclick', function(e) {
-        console.log(e) 
+        aaf.ol5.helper.printLog('singleclick', e)
         map2d.forEachFeatureAtPixel(e.pixel, function(feature) {
-            console.log(feature.getGeometry());
+            aaf.ol5.helper.printLog('forEachFeatureAtPixel', feature.getGeometry())
         });
     });
     
@@ -73,6 +73,13 @@
     
     aaf.ol5.helper.overlayGeoJSON(line, {fitExtent: true})
     
+    
+    /* -------------------------------------------------- 
+     * Console log output mode 
+     * ------------------------------------------------ */
+    $('.aaf-ol5-debug-flag input[type=checkbox]').on('change', function() {
+        aaf.ol5.immutable.DEBUG = $(this).prop('checked');
+    })
     
     /* -------------------------------------------------- 
      * Base map change listeners 

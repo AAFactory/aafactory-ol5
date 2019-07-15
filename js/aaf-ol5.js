@@ -13,7 +13,12 @@ ol.Map.prototype.getLayer = function(name) {
     return targetLayer;
 }
 
-aaf.ol5.helper = {}
+aaf.ol5.helper.printLog = function(prefix, message) {
+    if (aaf.ol5.immutable.DEBUG) {
+        console.log(prefix, message);
+    }
+}
+
 aaf.ol5.helper.overlayGeoJSON = function(data, option) {
     var style = option.style ? option.style : [ new ol.style.Style({
         stroke : new ol.style.Stroke({
@@ -112,6 +117,11 @@ aaf.ol5.interaction.DrawFeature = function(map) {
                 type: value,
                 style: drawStyleFunction
             });
+            
+            _draw.on('drawend', function(e) {
+                e.feature.setId('point-' + _source.getFeatures().length);
+            });
+            
             _map.addInteraction(_draw);
         }
     }

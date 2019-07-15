@@ -3,7 +3,8 @@
  * ------------------------------------------------ */
 var aaf = {}
 aaf.ol5 = {}
-aaf.ol5.immutable = { VWORLD_KEY: '1074A244-16DE-3761-B6BC-B8E884F91409' }
+aaf.ol5.helper = {}
+aaf.ol5.immutable = { VWORLD_KEY: '1074A244-16DE-3761-B6BC-B8E884F91409', DEBUG: true }
 aaf.ol5.interaction = {}
 
 /* -------------------------------------------------- 
@@ -73,8 +74,15 @@ var styleFunction = function(feature) {
         offset: [0,0],
         src: 'img/map-marker-2-24.png'
     });
+    var text = new ol.style.Text({
+        text: feature.getId(),
+        textBaseline: 'top',
+        offsetY: 8,
+        stroke: new ol.style.Stroke({color: '#FFFFFF', width: 2}),
+        font: 'bold 12px Arial'
+    })
     var styles = {
-        'Point': [new ol.style.Style({ image: circle }), new ol.style.Style({ image: marker })],
+        'Point': [new ol.style.Style({ image: circle, text: text }), new ol.style.Style({ image: marker })],
         'LineString': new ol.style.Style({
             stroke: new ol.style.Stroke({
                 color: 'green',

@@ -182,7 +182,9 @@ select { height: 34px; }
   height: 28px;
   background: url(../img/logo_openplatform_simple.png)
 }
-
+.aaf-ol5-debug-flag {
+  text-align: right;
+}
 
 /* -------------------------------------------------- 
  * Third Party
