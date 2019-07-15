@@ -235,6 +235,32 @@ aaf.ol5.interaction.Measure = function(map) {
      */
     var continueLineMsg = 'Click to continue drawing the line';
     
+    /**
+     * Handle pointer move.
+     * @param {module:ol/MapBrowserEvent~MapBrowserEvent} evt The event.
+     */
+    var pointerMoveHandler = function(evt) {
+        if (evt.dragging) {
+            return;
+        }
+        /** @type {string} */
+        var helpMsg = 'Click to start drawing';
+        
+        if (sketch) {
+            var geom = (sketch.getGeometry());
+            if (geom instanceof ol.geom.Polygon) {
+                helpMsg = continuePolygonMsg;
+            } else if (geom instanceof ol.geom.LineString) {
+                helpMsg = continueLineMsg;
+            }
+        }
+        
+        helpTooltipElement.innerHTML = helpMsg;
+        helpTooltip.setPosition(evt.coordinate);
+        
+        helpTooltipElement.classList.remove('hidden');
+    };
+    
     var _map = map;
     var _draw; 
     var _source = new ol.source.Vector();
@@ -243,6 +269,7 @@ aaf.ol5.interaction.Measure = function(map) {
         name: 'aaf-ol5-measure'
     });
     _map.addLayer(_vector);
+//    _map.on('pointermove', pointerMoveHandler);
     
     /**
      * Format length output.
@@ -290,8 +317,10 @@ aaf.ol5.interaction.Measure = function(map) {
         measureTooltip = new ol.Overlay({
             element: measureTooltipElement,
             offset: [0, -15],
-            positioning: 'bottom-center'
+            positioning: 'bottom-center',
+            
         });
+        measureTooltip.set('type', 'measure');
         _map.addOverlay(measureTooltip);
     }
 
@@ -345,7 +374,7 @@ aaf.ol5.interaction.Measure = function(map) {
             });
             _map.addInteraction(_draw);
             createMeasureTooltip();
-            createHelpTooltip();
+//            createHelpTooltip();
             
             var listener;
             _draw.on('drawstart', function(evt) {
@@ -390,7 +419,7 @@ aaf.ol5.interaction.Measure = function(map) {
     this.clearAll = function() {
         _source.clear();
         _map.getOverlays().forEach(function(overlay) {
-            overlay.setMap(null)
+            if (overlay.get('type') == 'measure') overlay.setMap(null)
         });
         $('#none').trigger('click')
     }
