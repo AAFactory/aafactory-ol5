@@ -8,7 +8,7 @@
             /*minZoom: 9,*/
             /*maxZoom: 19,*/
             /*center: [14151634.386853758, 4501822.588975821],*/
-            resolutions: [4891.96981025128, 2445.98490512564, 1222.99245256282, 611.49622628141, 305.748113140705, 152.8740565703525, 76.43702828517625, 38.21851414258813, 19.109257071294063, 9.554628535647032, 4.777314267823516, 2.388657133911758, 1.194328566955879, 0.5971642834779395, 0.29858214173896974]
+            resolutions: resolutions
         })
     });
 //    map2d.getControls().item(0).setMap(null)
@@ -60,18 +60,24 @@
         var nearestPoint = turf.nearestPointOnLine(line, point, {units: 'miles'}); 
         var bearing = turf.bearing(point, nearestPoint);
         var rotate = (180 + bearing) * (Math.PI/180)
-        aaf.ol5.helper.overlayGeoJSON(point, {style: [ new ol.style.Style({
-            image : new ol.style.Icon({
-                anchor: [0.5, 0.5],
-                anchorXUnits: 'fraction',
-                anchorYUnits: 'fraction',
-                src: 'img/arrow-down-4-24.png',
-                rotation: rotate
-            })
-        })]});
+        var style = [
+                     new ol.style.Style({
+                         image : new ol.style.Icon({
+                             anchor: [0.5, 0.5],
+                             anchorXUnits: 'fraction',
+                             anchorYUnits: 'fraction',
+                             src: 'img/arrow-down-4-24.png',
+                             rotation: rotate
+                         })
+                     })
+                     ];
+        aaf.ol5.helper.overlayGeoJSON(point, {
+            'style': style,
+            'maxResolution': resolutions[9]
+        });
     });
     
-    aaf.ol5.helper.overlayGeoJSON(line, {fitExtent: true})
+    aaf.ol5.helper.overlayGeoJSON(line, {'fitExtent': true, 'maxResolution': resolutions[9]})
     
     
     /* -------------------------------------------------- 

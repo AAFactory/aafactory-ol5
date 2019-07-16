@@ -32,11 +32,14 @@ aaf.ol5.helper.overlayGeoJSON = function(data, option) {
             src: 'img/map-marker-2-24.png'
         })
     })]
+    
+    var maxResolution = option.maxResolution ? option.maxResolution : resolutions[0]
     var geoJSONLayer = new ol.layer.Vector({
-        source : new ol.source.Vector({
+        'source' : new ol.source.Vector({
             features : (new ol.format.GeoJSON()).readFeatures(data, { dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857'})
         }),
-        style: style
+        'style': style,
+        'maxResolution': maxResolution
     });    
     
     if (option.fitExtent) {
